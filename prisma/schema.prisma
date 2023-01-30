@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model breeds {
+  id          Int          @id @default(autoincrement())
+  name        String
+  cientific   String
+  description String
+  atk         Int?         @default(100)
+  def         Int?         @default(100)
+  hab_breeds  hab_breeds[]
+}
+
+model hab_breeds {
+  id        Int    @id @default(autoincrement())
+  breed_id  Int
+  habilitie String
+  breeds    breeds @relation(fields: [breed_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
